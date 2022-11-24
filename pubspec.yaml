@@ -1,6 +1,6 @@
 name: sec
 description: Implementation of Standards for Efficient Cryptography (SEC) including SECP256K1 and SECP256R1.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/xclud/dart_sec
 
 environment:
