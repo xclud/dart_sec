@@ -13,7 +13,7 @@ void main() {
       radix: 16,
     );
 
-    final publicKey = Secp256k1.createPublicKey(privateKey, true);
+    final publicKey = EC.secp256k1.createPublicKey(privateKey, true);
     final pkHex = hex.encode(publicKey);
 
     test('Compressed Public Key', () {
@@ -29,16 +29,16 @@ void main() {
         'c57304b3a53051600d7035fc593083810a8fa250e6a7a2803cf6a0f3c2750503',
         radix: 16);
 
-    final pk = Secp256k1.createPublicKey(sk, false);
+    final pk = EC.secp256k1.createPublicKey(sk, false);
     final pkInt = utils.decodeBigIntWithSign(1, pk.sublist(1));
     final message = Uint8List.fromList(hex.decode(
         '491c81e567b1cc3194e3c573fb433546b4f51c8ad7a363e7dfbbaea78d26aedc'));
 
     final hash = SHA256Digest().process(message);
-    final sign = Secp256k1.generateSignature(sk, hash);
-    final recId = Secp256k1.calculateRecoveryId(pkInt, sign, hash)! + 27;
+    final sign = EC.secp256k1.generateSignature(sk, hash);
+    final recId = EC.secp256k1.calculateRecoveryId(pkInt, sign, hash)! + 27;
 
-    final signature = Secp256k1.generateSignature(sk, message, false);
+    final signature = EC.secp256k1.generateSignature(sk, message, false);
 
     final rHex = signature.r.toRadixString(16).padLeft(64, '0');
     final sHex = signature.s.toRadixString(16).padLeft(64, '0');

@@ -7,7 +7,7 @@ void main() {
     radix: 16,
   );
 
-  final publicKey = Secp256k1.createPublicKey(privateKey, true);
+  final publicKey = EC.secp256k1.createPublicKey(privateKey, true);
   final pkHex = hex.encode(publicKey);
   print('Public Key: $pkHex');
 
