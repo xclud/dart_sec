@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Adds PublicKey compression and decompression methods.
+
 ## 1.0.1
 
 - Adds 39 more EC Curves.

@@ -4,58 +4,139 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:pointycastle/export.dart';
-import 'recovery.dart' as recovery;
+import 'package:sec/src/recovery.dart' as recovery;
 
 /// Elliptic Curve.
 class EC {
   const EC._(this._params);
 
+  /// SECP112R1
+  static final secp112r1 = EC._(ECCurve_secp112r1());
+
+  /// SECP112R2
+  static final secp112r2 = EC._(ECCurve_secp112r2());
+
+  /// SECP128R1
   static final secp128r1 = EC._(ECCurve_secp128r1());
+
+  /// SECP128R2
   static final secp128r2 = EC._(ECCurve_secp128r2());
+
+  /// SECP160K1
   static final secp160k1 = EC._(ECCurve_secp160k1());
+
+  /// SECP160R1
   static final secp160r1 = EC._(ECCurve_secp160r1());
+
+  /// SECP160R2
   static final secp160r2 = EC._(ECCurve_secp160r2());
+
+  /// SECP192K1
   static final secp192k1 = EC._(ECCurve_secp192k1());
+
+  /// SECP192R1
   static final secp192r1 = EC._(ECCurve_secp192r1());
+
+  /// SECP224K1
   static final secp224k1 = EC._(ECCurve_secp224k1());
+
+  /// SECP224R1
   static final secp224r1 = EC._(ECCurve_secp224r1());
+
+  /// SECP256K1
   static final secp256k1 = EC._(ECCurve_secp256k1());
+
+  /// SECP256R1
   static final secp256r1 = EC._(ECCurve_secp256r1());
+
+  /// SECP384R1
   static final secp384r1 = EC._(ECCurve_secp384r1());
+
+  /// SECP521R1
   static final secp521r1 = EC._(ECCurve_secp521r1());
+
+  ///
   static final brainpoolp160r1 = EC._(ECCurve_brainpoolp160r1());
+
+  ///
   static final brainpoolp160t1 = EC._(ECCurve_brainpoolp160t1());
+
+  ///
   static final brainpoolp192r1 = EC._(ECCurve_brainpoolp192r1());
+
+  ///
   static final brainpoolp192t1 = EC._(ECCurve_brainpoolp192t1());
+
+  ///
   static final brainpoolp224r1 = EC._(ECCurve_brainpoolp224r1());
+
+  ///
   static final brainpoolp224t1 = EC._(ECCurve_brainpoolp224t1());
+
+  ///
   static final brainpoolp256r1 = EC._(ECCurve_brainpoolp256r1());
+
+  ///
   static final brainpoolp256t1 = EC._(ECCurve_brainpoolp256t1());
+
+  ///
   static final brainpoolp320r1 = EC._(ECCurve_brainpoolp320r1());
+
+  ///
   static final brainpoolp320t1 = EC._(ECCurve_brainpoolp320t1());
+
+  ///
   static final brainpoolp384r1 = EC._(ECCurve_brainpoolp384r1());
+
+  ///
   static final brainpoolp384t1 = EC._(ECCurve_brainpoolp384t1());
+
+  ///
   static final brainpoolp512r1 = EC._(ECCurve_brainpoolp512r1());
+
+  ///
   static final brainpoolp512t1 = EC._(ECCurve_brainpoolp512t1());
+
+  ///
   static final gostr3410_2001_cryptopro_a =
       EC._(ECCurve_gostr3410_2001_cryptopro_a());
+
+  ///
   static final gostr3410_2001_cryptopro_b =
       EC._(ECCurve_gostr3410_2001_cryptopro_b());
+
+  ///
   static final gostr3410_2001_cryptopro_c =
       EC._(ECCurve_gostr3410_2001_cryptopro_c());
+
+  ///
   static final gostr3410_2001_cryptopro_xcha =
       EC._(ECCurve_gostr3410_2001_cryptopro_xcha());
+
+  ///
   static final gostr3410_2001_cryptopro_xchb =
       EC._(ECCurve_gostr3410_2001_cryptopro_xchb());
+
+  ///
   static final prime192v1 = EC._(ECCurve_prime192v1());
+
+  ///
   static final prime192v2 = EC._(ECCurve_prime192v2());
+
+  ///
   static final prime192v3 = EC._(ECCurve_prime192v3());
+
+  ///
   static final prime239v1 = EC._(ECCurve_prime239v1());
+
+  ///
   static final prime239v2 = EC._(ECCurve_prime239v2());
+
+  ///
   static final prime239v3 = EC._(ECCurve_prime239v3());
+
+  ///
   static final prime256v1 = EC._(ECCurve_prime256v1());
-  static final secp112r1 = EC._(ECCurve_secp112r1());
-  static final secp112r2 = EC._(ECCurve_secp112r2());
 
   final ECDomainParameters _params;
 
@@ -64,6 +145,22 @@ class EC {
     final q = _params.G * privateKey;
 
     return q!.getEncoded(compressed);
+  }
+
+  /// Creates a Compressed [PublicKey] from the given public key.
+  Uint8List compressPublicKey(Uint8List publicKey) {
+    final ec = _params.curve.decodePoint(publicKey);
+    final compressed = ec!.getEncoded(true);
+
+    return compressed;
+  }
+
+  /// Creates a Compressed [PublicKey] from the given public key.
+  Uint8List uncompressPublicKey(Uint8List publicKey) {
+    final ec = _params.curve.decodePoint(publicKey);
+    final compressed = ec!.getEncoded(false);
+
+    return compressed;
   }
 
   /// Generates a Digital Signature.

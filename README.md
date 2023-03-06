@@ -1,3 +1,5 @@
+[![package publisher](https://img.shields.io/pub/publisher/sec.svg)](https://pub.dev/packages/sec/publisher)
+
 Implementation of `Standards for Efficient Cryptography (SEC)` including SECP256K1 and SECP256R1.
 
 ## Features
@@ -74,4 +76,4 @@ print('Public Key: $pkHex');
 
 ## Additional information
 
-This package uses [pointycastle](https://pub.dev/packages/point).
+This package uses [pointycastle](https://pub.dev/packages/pointycastle).
